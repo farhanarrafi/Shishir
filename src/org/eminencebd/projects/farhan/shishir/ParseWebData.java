@@ -32,6 +32,9 @@ public class ParseWebData extends AsyncTask<String, Integer, String> {
 			
 			doc = Jsoup.connect(url).get();
 			table = doc.getElementsByTag("table");
+			
+			
+			
 			//return table.html();
 			
 		} catch (IOException e) {
