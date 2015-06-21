@@ -1,0 +1,76 @@
+package org.eminencebd.projects.farhan.shishir;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+
+@SuppressLint("SetJavaScriptEnabled") public class MainActivity extends Activity {
+	
+	private WebView webView_Shishir;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        webView_Shishir = (WebView) findViewById(R.id.webView_Shishir);
+        //webView_Shishir.setWebViewClient(new WebViewClient());
+        
+//        String urlStr = "http://shishir.site11.com/"; 
+        String ret = "<h1>NO DATA FOUND</h1>";
+        
+        String data = "";
+        
+        Elements table;
+		Document doc;
+		try {
+			
+			doc = Jsoup.connect("http://shishir.site11.com/data/bloodbank.html").get();
+			
+			
+			table = doc.getElementsByTag("table");
+			
+			ret = table.toString();
+			//Log.d("TABLE", table.html());
+			
+			
+		} catch (IOException e) {
+			Toast.makeText(getApplicationContext(),"No Data Found", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		}
+        
+        
+//        LoadWebData loadData = new LoadWebData(webView_Shishir);
+//        loadData.execute(urlStr);
+        
+//        webView_Shishir.getSettings().setJavaScriptEnabled(true);
+//        webView_Shishir.loadUrl(urlStr);
+        
+//        ParseWebData parsedata = new ParseWebData(webView_Shishir);
+//        
+//        try {
+//			ret = parsedata.execute("http://shishir.site11.com/data/bloodbank.html").get();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+        
+        webView_Shishir.getSettings().setJavaScriptEnabled(true);
+		webView_Shishir.loadData(ret, "text/html", "utf-8");
+        
+    }
+}
